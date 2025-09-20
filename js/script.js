@@ -154,19 +154,108 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
             submitBtn.disabled = true;
             
-            // Simulate form submission (replace with actual form submission logic)
-            setTimeout(() => {
-                showNotification('Message sent successfully!', 'success');
-                contactForm.reset();
-                removeValidationClasses();
-                
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+            // Store form data in localStorage (backup)
+            const submissionData = {
+                name: name,
+                email: email,
+                message: message,
+                timestamp: new Date().toISOString(),
+                id: Date.now()
+            };
+            
+            let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+            submissions.push(submissionData);
+            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+            
+            // Send email via EmailJS (if configured)
+            sendEmailViaEmailJS(submissionData, submitBtn, originalText);
         });
     }
     
+    // ===== Email and Backend Integration =====
+    
+    async function sendEmailViaEmailJS(submissionData, submitBtn, originalText) {
+        try {
+            // Try backend first
+            await sendToBackend(submissionData);
+            
+            // If backend succeeds, also try EmailJS (if configured)
+            if (typeof EMAILJS_CONFIG !== 'undefined' && EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+                await sendViaEmailJS(submissionData);
+            }
+            
+            // Success - reset form
+            resetFormAfterSuccess(submitBtn, originalText);
+            
+        } catch (error) {
+            console.error('Submission error:', error);
+            // Show warning but don't fail completely since we have localStorage backup
+            showNotification('Message saved locally. Please try again later.', 'warning');
+            resetFormAfterSuccess(submitBtn, originalText);
+        }
+    }
+    
+    async function sendToBackend(submissionData) {
+        const response = await fetch('http://localhost:3001/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: submissionData.name,
+                email: submissionData.email,
+                message: submissionData.message
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Backend error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        if (!result.success) {
+            throw new Error(result.error || 'Backend submission failed');
+        }
+        
+        console.log('✅ Message sent to backend successfully');
+        showNotification('Message sent successfully!', 'success');
+        return result;
+    }
+    
+    async function sendViaEmailJS(submissionData) {
+        if (typeof emailjs === 'undefined') {
+            throw new Error('EmailJS not loaded');
+        }
+        
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+        
+        const templateParams = {
+            name: submissionData.name,
+            email: submissionData.email,
+            message: submissionData.message,
+            timestamp: submissionData.timestamp
+        };
+        
+        const result = await emailjs.send(
+            EMAILJS_CONFIG.SERVICE_ID,
+            EMAILJS_CONFIG.TEMPLATE_ID,
+            templateParams
+        );
+        
+        console.log('✅ Email sent via EmailJS successfully');
+        return result;
+    }
+    
+    function resetFormAfterSuccess(submitBtn, originalText) {
+        const contactForm = document.getElementById('contact-form');
+        contactForm.reset();
+        removeValidationClasses();
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+
     // Form validation
     function validateForm(name, email, message) {
         let isValid = true;
@@ -232,6 +321,51 @@ document.addEventListener('DOMContentLoaded', function() {
         errorDiv.className = 'error-message text-red-500 text-sm mt-1';
         errorDiv.textContent = message;
         field.parentNode.appendChild(errorDiv);
+    }
+    
+    // ===== EmailJS Integration =====
+    
+    function sendEmailViaEmailJS(submissionData, submitBtn, originalText) {
+        // Check if EmailJS is configured
+        if (typeof EMAILJS_CONFIG === 'undefined' || 
+            EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_EMAILJS_PUBLIC_KEY') {
+            // EmailJS not configured, use localStorage only
+            setTimeout(() => {
+                showNotification('Message saved locally!', 'success');
+                resetFormAndButton(submitBtn, originalText);
+            }, 1000);
+            return;
+        }
+        
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+        
+        // Prepare template parameters
+        const templateParams = {
+            name: submissionData.name,
+            email: submissionData.email,
+            message: submissionData.message,
+            timestamp: new Date(submissionData.timestamp).toLocaleString()
+        };
+        
+        // Send email
+        emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
+            .then(() => {
+                showNotification('Message sent successfully!', 'success');
+                resetFormAndButton(submitBtn, originalText);
+            })
+            .catch((error) => {
+                console.error('EmailJS error:', error);
+                showNotification('Message saved locally. Email service unavailable.', 'warning');
+                resetFormAndButton(submitBtn, originalText);
+            });
+    }
+    
+    function resetFormAndButton(submitBtn, originalText) {
+        contactForm.reset();
+        removeValidationClasses();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
     }
     
     // ===== Notification System =====
@@ -521,3 +655,49 @@ trackEvent('page_view', {
     page: window.location.pathname,
     timestamp: new Date().toISOString()
 });
+
+// ===== Contact Form Data Management =====
+
+// Function to retrieve all stored contact submissions
+function getContactSubmissions() {
+    return JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+}
+
+// Function to export submissions as CSV (for admin use)
+function exportSubmissionsCSV() {
+    const submissions = getContactSubmissions();
+    if (submissions.length === 0) {
+        console.log('No submissions to export');
+        return;
+    }
+    
+    const headers = ['Name', 'Email', 'Message', 'Timestamp'];
+    const csvContent = [
+        headers.join(','),
+        ...submissions.map(sub => [
+            `"${sub.name}"`,
+            `"${sub.email}"`,
+            `"${sub.message.replace(/"/g, '""')}"`,
+            `"${sub.timestamp}"`
+        ].join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `contact-submissions-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+// Function to clear all stored submissions (for testing)
+function clearStoredSubmissions() {
+    localStorage.removeItem('contactSubmissions');
+    console.log('All stored submissions cleared');
+}
+
+// Make functions available globally for console access
+window.getContactSubmissions = getContactSubmissions;
+window.exportSubmissionsCSV = exportSubmissionsCSV;
+window.clearStoredSubmissions = clearStoredSubmissions;
