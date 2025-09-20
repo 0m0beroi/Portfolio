@@ -1,0 +1,13 @@
+// ES module to render project cards
+import './data.js';
+
+function renderProjects(){
+  const grid = document.getElementById('projects-grid');
+  if(!grid || !window.portfolioData) return;
+  grid.innerHTML = window.portfolioData.projects.map(p => {
+    const tech = p.technologies.slice(0,3).map(t=>`<span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">${t}</span>`).join('');
+    return `<div class="project-card glass-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group" aria-label="Project: ${p.title}">\n<div class="h-48 bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center">\n<i class="${p.icon} text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>\n</div>\n<div class="p-6">\n<h3 class="text-xl font-bold text-gray-900 mb-3">${p.title}</h3>\n<p class="text-gray-600 mb-4 leading-relaxed line-clamp-4">${p.description}</p>\n<div class="flex flex-wrap gap-2 mb-4">${tech}</div>\n<a href="${p.page}" class="block text-center w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors" aria-label="View project details for ${p.title}">View Project</a>\n</div>\n</div>`;
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', renderProjects);

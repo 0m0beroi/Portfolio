@@ -1,0 +1,1 @@
+getComputedStyle(document.querySelector('a[href=\"#portfolio\"]')).transition

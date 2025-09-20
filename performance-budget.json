@@ -1,0 +1,16 @@
+{
+  "metrics": {
+    "html": { "maxKB": 60 },
+    "css": { "maxKB": 120 },
+    "js": { "maxKB": 250 },
+    "images": { "maxKB": 400 },
+    "total": { "maxKB": 800 }
+  },
+  "lighthouseTargets": {
+    "performance": 0.9,
+    "accessibility": 0.9,
+    "bestPractices": 0.9,
+    "seo": 0.9
+  },
+  "notes": "Initial conservative performance budget. Adjust after real-world profiling."
+}

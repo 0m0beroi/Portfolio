@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Om Oberoi - Electronics & Communication Engineer | Web Developer | Innovator">
+    <meta name="keywords" content="Om Oberoi, Electronics Engineer, Web Developer, Portfolio, ECE, BBDNIIT">
+    <link rel="canonical" href="https://example.com/" />
+    <meta name="theme-color" content="#3B82F6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="assets/images/profile.jpg" as="image" imagesrcset="assets/images/profile.jpg 1x" fetchpriority="high">
+    <link rel="prefetch" href="projects/wifi-repeater.html" as="document">
+    <link rel="prefetch" href="projects/wearable-oscilloscope.html" as="document">
+    <link rel="prefetch" href="projects/career-booster.html" as="document">
+    <title>Om Oberoi | Electronics & Communication Engineer</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Om Oberoi | Electronics & Communication Engineer" />
+    <meta property="og:description" content="Portfolio showcasing embedded systems, innovation, and software projects." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:image" content="assets/images/profile.jpg" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Om Oberoi | Electronics & Communication Engineer" />
+    <meta name="twitter:description" content="Embedded systems, innovation & software portfolio." />
+    <meta name="twitter:image" content="assets/images/profile.jpg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind: during dev Vite processes css/main.css via PostCSS; in production we still rely on pre-built css/tw.css -->
+    <!-- DEV -->
+    <link rel="stylesheet" href="/css/main.css" />
+    <!-- PROD fallback (kept for service worker + non-Vite hosting) -->
+    <link rel="stylesheet" href="css/tw.css" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- Configuration CSS -->
+    <link rel="stylesheet" href="css/config.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+        <!-- Structured Data -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Om Oberoi",
+            "jobTitle": "Electronics & Communication Engineer",
+            "url": "https://example.com/",
+            "sameAs": [
+                "https://www.linkedin.com/in/om-oberoi-253008365",
+                "https://github.com/0m0beroi"
+            ],
+            "image": "https://example.com/assets/images/profile.jpg"
+        }
+        </script>
+</head>
+<body class="font-inter bg-white text-gray-900 overflow-x-hidden glass-theme">
+        <a href="#home" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-accent-blue text-white px-4 py-2 rounded-md z-50">Skip to content</a>
+    
+    <!-- Navigation Include Placeholder -->
+    <div id="site-nav"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+        <!-- Background geometric shapes -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-80 h-80 bg-gradient-to-br from-silver/20 to-accent-blue/20 rounded-full blur-3xl animate-float"></div>
+            <div class="absolute -bottom-10 -left-10 w-80 h-80 bg-gradient-to-br from-accent-blue/20 to-silver/20 rounded-full blur-3xl animate-float" style="animation-delay: 3s;"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold font-poppins text-gray-900 mb-6 animate-fade-in">
+                Om <span class="text-accent-blue">Oberoi</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-4 font-medium animate-slide-up" style="animation-delay: 0.2s;">
+                Electronics & Communication Engineer | Web Developer | Innovator
+            </p>
+            <p class="text-lg md:text-xl text-gray-500 mb-8 animate-slide-up" style="animation-delay: 0.4s;">
+                Bridging the gap between hardware and software
+            </p>
+            <div class="animate-slide-up" style="animation-delay: 0.6s;">
+                <a href="#portfolio" class="inline-flex items-center px-8 py-4 bg-accent-blue text-white font-semibold rounded-full hover:bg-dark-blue transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    View My Work
+                    <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-poppins text-gray-900 mb-4">About Me</h2>
+                <div class="w-24 h-1 bg-accent-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Profile Image -->
+                <div class="flex justify-center lg:justify-start">
+                    <div class="relative">
+                        <div class="w-80 h-80 rounded-2xl overflow-hidden shadow-2xl">
+                       <img src="assets/images/profile.jpg" 
+                           alt="Portrait of Om Oberoi, Electronics & Communication Engineer" 
+                           width="320" height="320" loading="lazy" decoding="async" fetchpriority="high"
+                           class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <!-- Fallback for when image is not found -->
+                            <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center" style="display: none;">
+                                <i class="fas fa-user text-8xl text-gray-500"></i>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-accent-blue rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-microchip text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- About Content -->
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        An ambitious and driven undergraduate student of Electronics and Communication Engineering with a keen interest in the intersection of hardware and software. I'm passionate about creating innovative solutions that bridge the gap between traditional electronics and modern web technologies.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-graduation-cap text-accent-blue text-xl"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Education</h3>
+                                <p class="text-gray-600">B.Tech in Electronics & Communication Engineering</p>
+                                <p class="text-gray-500 text-sm">BBDNIIT • Graduating 2027</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-certificate text-accent-blue text-xl mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Certifications</h3>
+                                <ul class="space-y-1 text-gray-600">
+                                    <li>• Cloud Computing Course (Infosys Springboard)</li>
+                                    <li>• Drone Technology Bootcamp (CDAC Patna)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <a href="#contact" class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors">
+                            Get In Touch
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-poppins text-gray-900 mb-4">Portfolio</h2>
+                <div class="w-24 h-1 bg-accent-blue mx-auto mb-4"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Explore my innovative projects that showcase the fusion of electronics and software engineering
+                </p>
+            </div>
+            
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Skills & Services Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-poppins text-gray-900 mb-4">Skills & Services</h2>
+                <div class="w-24 h-1 bg-accent-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Skills -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8 flex items-center">
+                        <i class="fas fa-cogs text-accent-blue mr-3"></i>
+                        Technical Skills
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="skill-item skill-item-base">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-900">Circuit Design</span>
+                                <span class="text-accent-blue font-medium">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-accent-blue to-dark-blue h-3 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item skill-item-base">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-900">Embedded Systems</span>
+                                <span class="text-accent-blue font-medium">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-accent-blue to-dark-blue h-3 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item skill-item-base">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-900">Web Development</span>
+                                <span class="text-accent-blue font-medium">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-accent-blue to-dark-blue h-3 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item skill-item-base">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-900">Data Structures & Algorithms</span>
+                                <span class="text-accent-blue font-medium">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-accent-blue to-dark-blue h-3 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8 flex items-center">
+                        <i class="fas fa-briefcase text-accent-blue mr-3"></i>
+                        Services Offered
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="service-card p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-palette text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Web Designing</h4>
+                                    <p class="text-gray-600">Creating modern, responsive, and user-friendly websites with clean design principles and optimal user experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-code text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Project Development</h4>
+                                    <p class="text-gray-600">End-to-end development of electronics and software projects, from concept to deployment with innovative solutions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chalkboard-teacher text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Tutoring</h4>
+                                    <p class="text-gray-600">Personalized tutoring in electronics, programming, and web development to help students excel in their studies.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-poppins text-gray-900 mb-4">Get In Touch</h2>
+                <div class="w-24 h-1 bg-accent-blue mx-auto mb-4"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Ready to collaborate? Let's discuss your next project or just have a conversation about technology!
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Send Message</h3>
+                    <form class="space-y-6" id="contact-form" novalidate data-form-start>
+                        <!-- Honeypot field (hidden from users) -->
+                        <div class="hidden" aria-hidden="true">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+                        </div>
+                        <!-- Submission status region -->
+                        <div id="form-status" class="text-sm" aria-live="polite"></div>
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-colors">
+                        </div>
+                        
+                        <div data-message-wrapper>
+                            <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-colors resize-none"></textarea>
+                            <p id="message-hint" class="text-xs text-gray-500 mt-1">At least 10 characters. No links please.</p>
+                        </div>
+                        
+                        <button type="submit" 
+                            class="w-full bg-accent-blue text-white py-3 px-6 rounded-lg font-semibold hover:bg-dark-blue transform hover:scale-105 transition-all duration-300">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-envelope text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Email</h4>
+                                    <a href="mailto:omoberoi2004@gmail.com" class="text-gray-600 hover:text-accent-blue transition-colors">
+                                        omoberoi2004@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-phone text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Phone</h4>
+                                    <a href="tel:+918081378585" class="text-gray-600 hover:text-accent-blue transition-colors">
+                                        +91 8081378585
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-accent-blue/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-accent-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Location</h4>
+                                    <p class="text-gray-600">Lucknow, Uttar Pradesh, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Connect With Me</h3>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="https://www.linkedin.com/in/om-oberoi-253008365" class="flex items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-accent-blue hover:text-white transition-all duration-300 group">
+                                <i class="fab fa-linkedin text-2xl mr-3"></i>
+                                <span class="font-medium">LinkedIn</span>
+                            </a>
+
+                            <a href="https://github.com/0m0beroi" class="flex items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-gray-900 hover:text-white transition-all duration-300 group">
+                                <i class="fab fa-github text-2xl mr-3"></i>
+                                <span class="font-medium">GitHub</span>
+                            </a>
+                            
+                            <a href="https://leetcode.com/u/0m0beroi/" class="flex items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300 group">
+                                <i class="fas fa-code text-2xl mr-3"></i>
+                                <span class="font-medium">LeetCode</span>
+                            </a>
+                            
+                            <a href="https://www.instagram.com/0m0beroi/" class="flex items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-pink-500 hover:text-white transition-all duration-300 group">
+                                <i class="fab fa-instagram text-2xl mr-3"></i>
+                                <span class="font-medium">Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Include Placeholder -->
+    <div id="site-footer"></div>
+
+    <!-- JavaScript -->
+    <script src="js/api-config.js" defer></script>
+    <script src="js/email-config.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/includes.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script type="module" src="js/projects-render.js"></script>
+</body>
+</html>

@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Om Oberoi - Electronics & Communication Engineer | Web Developer | Innovator">
     <meta name="keywords" content="Om Oberoi, Electronics Engineer, Web Developer, Portfolio, ECE, BBDNIIT">
+    <link rel="canonical" href="https://example.com/" />
+    <meta name="theme-color" content="#3B82F6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="assets/images/profile.jpg" as="image" imagesrcset="assets/images/profile.jpg 1x" fetchpriority="high">
+    <link rel="prefetch" href="projects/wifi-repeater.html" as="document">
+    <link rel="prefetch" href="projects/wearable-oscilloscope.html" as="document">
+    <link rel="prefetch" href="projects/career-booster.html" as="document">
     <title>Om Oberoi | Electronics & Communication Engineer</title>
     <!-- Open Graph -->
     <meta property="og:title" content="Om Oberoi | Electronics & Communication Engineer" />
@@ -23,31 +30,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                        'poppins': ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        'silver': '#C0C0C0',
-                        'accent-blue': '#3B82F6',
-                        'dark-blue': '#1E40AF',
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out',
-                        'slide-up': 'slideUp 0.6s ease-out',
-                        'float': 'float 6s ease-in-out infinite',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Tailwind: during dev Vite processes css/main.css via PostCSS; in production we still rely on pre-built css/tw.css -->
+    <!-- DEV -->
+    <link rel="stylesheet" href="/css/main.css" />
+    <!-- PROD fallback (kept for service worker + non-Vite hosting) -->
+    <link rel="stylesheet" href="css/tw.css" media="print" onload="this.media='all'">
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,8 +47,24 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+        <!-- Structured Data -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Om Oberoi",
+            "jobTitle": "Electronics & Communication Engineer",
+            "url": "https://example.com/",
+            "sameAs": [
+                "https://www.linkedin.com/in/om-oberoi-253008365",
+                "https://github.com/0m0beroi"
+            ],
+            "image": "https://example.com/assets/images/profile.jpg"
+        }
+        </script>
 </head>
 <body class="font-inter bg-white text-gray-900 overflow-x-hidden glass-theme">
+        <a href="#home" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-accent-blue text-white px-4 py-2 rounded-md z-50">Skip to content</a>
     
     <!-- Navigation Include Placeholder -->
     <div id="site-nav"></div>
@@ -113,10 +116,11 @@
                 <div class="flex justify-center lg:justify-start">
                     <div class="relative">
                         <div class="w-80 h-80 rounded-2xl overflow-hidden shadow-2xl">
-                            <img src="assets/images/profile.jpg" 
-                                 alt="Om Oberoi - Electronics & Communication Engineer" 
-                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                       <img src="assets/images/profile.jpg" 
+                           alt="Portrait of Om Oberoi, Electronics & Communication Engineer" 
+                           width="320" height="320" loading="lazy" decoding="async" fetchpriority="high"
+                           class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <!-- Fallback for when image is not found -->
                             <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center" style="display: none;">
                                 <i class="fas fa-user text-8xl text-gray-500"></i>
@@ -199,7 +203,7 @@
                     </h3>
                     
                     <div class="space-y-6">
-                        <div class="skill-item">
+                        <div class="skill-item skill-item-base">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-semibold text-gray-900">Circuit Design</span>
                                 <span class="text-accent-blue font-medium">90%</span>
@@ -209,7 +213,7 @@
                             </div>
                         </div>
                         
-                        <div class="skill-item">
+                        <div class="skill-item skill-item-base">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-semibold text-gray-900">Embedded Systems</span>
                                 <span class="text-accent-blue font-medium">85%</span>
@@ -219,7 +223,7 @@
                             </div>
                         </div>
                         
-                        <div class="skill-item">
+                        <div class="skill-item skill-item-base">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-semibold text-gray-900">Web Development</span>
                                 <span class="text-accent-blue font-medium">80%</span>
@@ -229,7 +233,7 @@
                             </div>
                         </div>
                         
-                        <div class="skill-item">
+                        <div class="skill-item skill-item-base">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-semibold text-gray-900">Data Structures & Algorithms</span>
                                 <span class="text-accent-blue font-medium">75%</span>
@@ -305,7 +309,14 @@
                 <!-- Contact Form -->
                 <div class="bg-white rounded-2xl shadow-lg p-8">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6">Send Message</h3>
-                    <form class="space-y-6" id="contact-form">
+                    <form class="space-y-6" id="contact-form" novalidate data-form-start>
+                        <!-- Honeypot field (hidden from users) -->
+                        <div class="hidden" aria-hidden="true">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+                        </div>
+                        <!-- Submission status region -->
+                        <div id="form-status" class="text-sm" aria-live="polite"></div>
                         <div>
                             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                             <input type="text" id="name" name="name" required 
@@ -318,10 +329,11 @@
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-colors">
                         </div>
                         
-                        <div>
+                        <div data-message-wrapper>
                             <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
                             <textarea id="message" name="message" rows="5" required 
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-colors resize-none"></textarea>
+                            <p id="message-hint" class="text-xs text-gray-500 mt-1">At least 10 characters. No links please.</p>
                         </div>
                         
                         <button type="submit" 
@@ -409,22 +421,19 @@
     <div id="site-footer"></div>
 
     <!-- JavaScript -->
-        <script src="js/api-config.js"></script>
-        <script src="js/email-config.js"></script>
-        <script src="js/data.js"></script>
-        <script src="js/includes.js"></script>
-        <script src="js/script.js"></script>
-        <script>
-            // Dynamic project card generation
-            document.addEventListener('DOMContentLoaded', () => {
-                const grid = document.getElementById('projects-grid');
-                if(!grid || !window.portfolioData) return;
-                grid.innerHTML = window.portfolioData.projects.map(p => {
-                    const tech = p.technologies.slice(0,3).map(t=>`<span class=\"px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full\">${t}</span>`).join('');
-                    return `<div class=\"project-card glass-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group\">\n<div class=\"h-48 bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center\">\n<i class=\"${p.icon} text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300\"></i>\n</div>\n<div class=\"p-6\">\n<h3 class=\"text-xl font-bold text-gray-900 mb-3\">${p.title}</h3>\n<p class=\"text-gray-600 mb-4 leading-relaxed line-clamp-4\">${p.description}</p>\n<div class=\"flex flex-wrap gap-2 mb-4\">${tech}</div>\n<a href=\"${p.page}\" class=\"block text-center w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors\">View Project</a>\n</div>\n</div>`;
-                }).join('');
-            });
-            // Dark mode logic centralized in includes.js
-        </script>
+    <script src="js/api-config.js" defer></script>
+    <script src="js/email-config.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/includes.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script type="module" src="js/projects-render.js"></script>
+    <!-- Removed previous inline script that forcibly added 'reduce-effects' on load.
+         That script unintentionally paused all CSS animations (hover/click effects)
+         after a theme change because our theme switch logic then restarted animations
+         only once, but the class was re-applied early, keeping play-state paused.
+         Reduced-effects is now controlled exclusively via the theme menu toggle
+         (localStorage key: 'reduceEffects'). -->
 </body>
 </html>
+
+<!-- Removed duplicate inline reduced-effects style block (centralized in css/style.css). -->

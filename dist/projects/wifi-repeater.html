@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wi-Fi Repeater using ESP32 | Om Oberoi</title>
+  <meta name="description" content="ESP32 Wi-Fi Repeater project extending wireless coverage."/>
+  <meta property="og:title" content="Wi-Fi Repeater using ESP32"/>
+  <meta property="og:description" content="Embedded system project extending Wi-Fi coverage with ESP32."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:image" content="../assets/images/profile.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Wi-Fi Repeater using ESP32"/>
+  <meta name="twitter:description" content="Embedded system project extending Wi-Fi coverage with ESP32."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { inter: ['Inter','sans-serif'], poppins:['Poppins','sans-serif'] }, colors:{ 'accent-blue':'#3B82F6','dark-blue':'#1E40AF','silver':'#C0C0C0'} } }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .hero-bg{background:linear-gradient(135deg,#1E40AF 0%,#3B82F6 100%);}    
+  </style>
+</head>
+<body class="font-inter text-gray-900 bg-white glass-theme">
+  <div id="site-nav"></div>
+  <header class="hero-bg text-white py-20">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <nav class="text-sm mb-6" aria-label="Breadcrumb">
+        <ol class="flex justify-center gap-2 text-blue-100">
+          <li><a href="../index.html" class="hover:underline">Home</a> <span>/</span></li>
+          <li><a href="../index.html#portfolio" class="hover:underline">Portfolio</a> <span>/</span></li>
+          <li aria-current="page" class="text-white font-medium">Wi-Fi Repeater</li>
+        </ol>
+      </nav>
+      <i class="fas fa-wifi text-6xl mb-6"></i>
+      <h1 class="text-4xl md:text-5xl font-poppins font-bold mb-4">Wi-Fi Repeater using ESP32</h1>
+      <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">Extending Wi‑Fi coverage with an ESP32 based embedded system featuring automatic signal detection, amplification and seamless network bridging.</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-6">
+        <span class="px-4 py-1 rounded-full bg-white/20 text-sm">ESP32</span>
+        <span class="px-4 py-1 rounded-full bg-white/20 text-sm">Embedded</span>
+        <span class="px-4 py-1 rounded-full bg-white/20 text-sm">Networking</span>
+        <span class="px-4 py-1 rounded-full bg-white/20 text-sm">IoT</span>
+      </div>
+    </div>
+  </header>
+  <main class="py-16">
+    <div class="max-w-6xl mx-auto px-4 space-y-20">
+      <section id="overview" class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <h2 class="text-3xl font-bold font-poppins mb-4">Overview</h2>
+          <p class="text-gray-600 leading-relaxed mb-4">This project implements a cost‑effective Wi‑Fi repeater using the ESP32 microcontroller. It captures and re‑broadcasts signals to eliminate dead zones, providing a seamless extended network. Configuration is handled through an onboard web interface with real‑time diagnostics.</p>
+          <p class="text-gray-600 leading-relaxed mb-6">Optimizations include adaptive channel selection, power management, and antenna tuning, resulting in significant coverage improvement while maintaining stability and throughput.</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-accent-blue/10">
+              <div class="text-2xl font-bold text-accent-blue">300%</div>
+              <div class="text-sm text-gray-600">Coverage Gain</div>
+            </div>
+            <div class="p-4 rounded-xl bg-accent-blue/10">
+              <div class="text-2xl font-bold text-accent-blue">95%</div>
+              <div class="text-sm text-gray-600">Reliability</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm">
+          <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-list-check text-accent-blue"></i> Key Features</h3>
+          <ul class="space-y-3 text-gray-700 text-sm">
+            <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i><span>Automatic signal strength evaluation & amplification</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i><span>Transparent network bridging with minimal latency</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i><span>Web‑based configuration dashboard (channel & power settings)</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i><span>Real‑time RSSI monitoring & diagnostics</span></li>
+          </ul>
+        </div>
+      </section>
+      <section id="technical">
+        <h2 class="text-3xl font-bold font-poppins mb-6">Technical Stack</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white border rounded-xl p-6 shadow-sm">
+            <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-microchip text-accent-blue"></i> Hardware</h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li>ESP32 WROOM module (dual‑core Wi‑Fi/BT)</li>
+              <li>External 5dBi antenna (SMA)</li>
+              <li>DC‑DC Buck supply (power optimization)</li>
+              <li>OLED status display (optional)</li>
+            </ul>
+          </div>
+          <div class="bg-white border rounded-xl p-6 shadow-sm">
+            <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-code text-accent-blue"></i> Firmware / Software</h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li>ESP-IDF / Arduino framework</li>
+              <li>Custom Wi‑Fi scan & channel arbitration logic</li>
+              <li>Async web server (configuration UI)</li>
+              <li>EEPROM persistence for settings</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section id="gallery">
+        <h2 class="text-3xl font-bold font-poppins mb-6">Gallery</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a class="aspect-video rounded-xl bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center text-accent-blue cursor-zoom-in" data-lightbox data-src="../assets/images/profile.jpg" data-caption="Prototype board"><i class="fas fa-image text-3xl"></i></a>
+          <a class="aspect-video rounded-xl bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center text-accent-blue cursor-zoom-in" data-lightbox data-src="../assets/images/profile.jpg" data-caption="Assembly stage"><i class="fas fa-image text-3xl"></i></a>
+          <a class="aspect-video rounded-xl bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center text-accent-blue cursor-zoom-in" data-lightbox data-src="../assets/images/profile.jpg" data-caption="Web interface mockup"><i class="fas fa-image text-3xl"></i></a>
+        </div>
+      </section>
+      <section class="bg-accent-blue/10 p-8 rounded-2xl flex flex-col md:flex-row md:items-center gap-6">
+        <div class="flex-1">
+          <h3 class="text-2xl font-poppins font-bold mb-2">Interested in this project?</h3>
+          <p class="text-gray-600">Reach out to discuss implementation details, improvements or collaboration opportunities.</p>
+        </div>
+        <div class="flex gap-4">
+          <a href="../index.html#contact" class="px-6 py-3 bg-accent-blue text-white rounded-lg font-medium hover:bg-dark-blue transition-colors flex items-center gap-2"><i class="fas fa-envelope"></i> Contact</a>
+          <a href="../index.html#portfolio" class="px-6 py-3 border border-accent-blue text-accent-blue rounded-lg font-medium hover:bg-accent-blue hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-grid"></i> More Projects</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../js/includes.js"></script>
+  <script src="../js/project.js"></script>
+  <script src="../js/lightbox.js"></script>
+</body>
+</html>

@@ -57,46 +57,84 @@ app.get('/api/health', (req, res) => {
 });
 
 // Submit contact form
-app.post('/api/contact', (req, res) => {
-    const { name, email, message } = req.body;
-    
-    // Validation
-    if (!name || !email || !message) {
-        return res.status(400).json({
-            success: false,
-            error: 'Name, email, and message are required'
-        });
+// Basic in-memory rate limiting + spam guard
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX = 5; // max submissions per window per IP
+const submissionLog = new Map(); // ip -> array of timestamps
+
+function isRateLimited(ip) {
+    const now = Date.now();
+    const windowStart = now - RATE_LIMIT_WINDOW_MS;
+    const list = (submissionLog.get(ip) || []).filter(ts => ts > windowStart);
+    if (list.length >= RATE_LIMIT_MAX) {
+        submissionLog.set(ip, list); // keep pruned
+        return true;
     }
-    
-    // Create submission object
+    list.push(now);
+    submissionLog.set(ip, list);
+    return false;
+}
+
+function basicSpamHeuristic({ name, email, message }) {
+    const lc = message.toLowerCase();
+    const spamPatterns = [/https?:\/\//, /viagra|casino|loan|bitcoin/i, /(.)\1{6,}/];
+    if (spamPatterns.some(r => r.test(lc))) return 'Message appears to contain spam content';
+    if (/(<script|<a\s)/i.test(lc)) return 'HTML or script tags are not allowed';
+    return null;
+}
+
+app.post('/api/contact', (req, res) => {
+    const { name, email, message, company } = req.body || {};
+    const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip || req.connection.remoteAddress;
+
+    // Honeypot
+    if (company) {
+        return res.status(400).json({ success: false, error: 'Spam detected (honeypot)' });
+    }
+
+    if (isRateLimited(clientIp)) {
+        return res.status(429).json({ success: false, error: 'Too many submissions. Please wait a minute.' });
+    }
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ success: false, error: 'Name, email, and message are required' });
+    }
+
+    // Length constraints
+    if (name.length < 2 || name.length > 100) {
+        return res.status(400).json({ success: false, error: 'Name must be between 2 and 100 characters' });
+    }
+    if (email.length > 160) {
+        return res.status(400).json({ success: false, error: 'Email too long' });
+    }
+    if (message.length < 10 || message.length > 2000) {
+        return res.status(400).json({ success: false, error: 'Message must be between 10 and 2000 characters' });
+    }
+    if (/https?:\/\//i.test(message)) {
+        return res.status(400).json({ success: false, error: 'Links are not allowed in message' });
+    }
+
+    const spamReason = basicSpamHeuristic({ name, email, message });
+    if (spamReason) {
+        return res.status(400).json({ success: false, error: spamReason });
+    }
+
     const submission = {
         id: Date.now(),
         name: name.trim(),
         email: email.trim().toLowerCase(),
         message: message.trim(),
         timestamp: new Date().toISOString(),
-        ip: req.ip || req.connection.remoteAddress
+        ip: clientIp
     };
-    
-    // Read existing submissions
+
     const submissions = readSubmissions();
-    
-    // Add new submission
     submissions.push(submission);
-    
-    // Save to file
     if (saveSubmissions(submissions)) {
-        console.log(`New contact submission from: ${name} (${email})`);
-        res.json({
-            success: true,
-            message: 'Contact form submitted successfully',
-            id: submission.id
-        });
+        console.log(`New contact submission from: ${submission.name} (${submission.email})`);
+        return res.json({ success: true, message: 'Contact form submitted successfully', id: submission.id });
     } else {
-        res.status(500).json({
-            success: false,
-            error: 'Failed to save submission'
-        });
+        return res.status(500).json({ success: false, error: 'Failed to save submission' });
     }
 });
 

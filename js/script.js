@@ -133,43 +133,149 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Contact Form Functionality =====
     
     const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    let lastSubmissionHash = null;
+    let formStartTime = performance.now();
     if (contactForm) {
+        // Mark start time
+        contactForm.dataset.start = String(Date.now());
+        contactForm.addEventListener('input', () => {
+            if (!contactForm.dataset.firstInteraction) {
+                contactForm.dataset.firstInteraction = String(Date.now());
+            }
+        });
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
+            // Honeypot
+            const honeypot = (this.querySelector('#company') || {}).value;
+            if (honeypot) {
+                showNotification('Spam detected. Submission blocked.', 'warning');
+                return;
+            }
+
+            // Minimum fill time (human heuristic)
+            const firstInteraction = Number(this.dataset.firstInteraction || Date.now());
+            const elapsed = Date.now() - firstInteraction;
+            if (elapsed < 1500) { // less than 1.5s
+                showNotification('Please take a moment to complete the form.', 'warning');
+                return;
+            }
+
             // Get form data
             const formData = new FormData(this);
             const name = formData.get('name');
             const email = formData.get('email');
             const message = formData.get('message');
-            
-            // Basic validation
+
+            // Stronger validation
             if (!validateForm(name, email, message)) {
+                updateFormStatus('Please correct the highlighted errors.', 'error');
                 return;
             }
-            
+
+            // De-duplicate rapid identical submissions
+            const hashBase = `${name}|${email}|${message}`.trim();
+            const hash = btoa(unescape(encodeURIComponent(hashBase))).slice(0,64);
+            if (lastSubmissionHash && lastSubmissionHash === hash) {
+                showNotification('Duplicate submission ignored.', 'warning');
+                return;
+            }
+            lastSubmissionHash = hash;
+
             // Show loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
             submitBtn.disabled = true;
-            
-            // Store form data in localStorage (backup)
+            updateFormStatus('Sending your message...', 'info');
+
             const submissionData = {
-                name: name,
-                email: email,
-                message: message,
+                name: name.trim(),
+                email: email.trim(),
+                message: message.trim(),
                 timestamp: new Date().toISOString(),
                 id: Date.now()
             };
-            
-            let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-            submissions.push(submissionData);
-            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-            
-            // Send email via EmailJS (if configured)
-            sendEmailViaEmailJS(submissionData, submitBtn, originalText);
+
+            persistLocalBackup(submissionData);
+
+            // Attempt send with retry/backoff and offline queue
+            submitWithResilience(submissionData)
+                .then(() => {
+                    resetFormAfterSuccess(submitBtn, originalText);
+                    updateFormStatus('Message sent successfully!', 'success');
+                })
+                .catch(err => {
+                    console.error('Final submission failure:', err);
+                    showNotification('Message saved locally. Will retry when online.', 'warning');
+                    queuePending(submissionData);
+                    resetFormAfterSuccess(submitBtn, originalText);
+                    updateFormStatus('Message stored locally. We\'ll retry automatically.', 'warning');
+                });
         });
+
+        window.addEventListener('online', processPendingQueue);
+    }
+
+    function updateFormStatus(msg, type='info') {
+        if (!formStatus) return;
+        formStatus.textContent = msg;
+        formStatus.className = `text-sm mt-1 ${type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : type === 'warning' ? 'text-yellow-600' : 'text-gray-600'}`;
+    }
+
+    function persistLocalBackup(data) {
+        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        submissions.push(data);
+        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+    }
+
+    function queuePending(data) {
+        const queue = JSON.parse(localStorage.getItem('pendingContactQueue') || '[]');
+        queue.push(data);
+        localStorage.setItem('pendingContactQueue', JSON.stringify(queue));
+    }
+
+    async function processPendingQueue() {
+        const queue = JSON.parse(localStorage.getItem('pendingContactQueue') || '[]');
+        if (!queue.length) return;
+        updateFormStatus('Re-trying stored messages...', 'info');
+        const remaining = [];
+        for (const item of queue) {
+            try {
+                await submitWithResilience(item, { skipEmail: true, maxAttempts: 2 });
+            } catch {
+                remaining.push(item);
+            }
+        }
+        localStorage.setItem('pendingContactQueue', JSON.stringify(remaining));
+        if (!remaining.length) {
+            updateFormStatus('All stored messages sent!', 'success');
+        } else {
+            updateFormStatus(`${remaining.length} stored messages still pending.`, 'warning');
+        }
+    }
+
+    async function submitWithResilience(submissionData, opts={}) {
+        const maxAttempts = opts.maxAttempts || 3;
+        let attempt = 0;
+        let lastError;
+        while (attempt < maxAttempts) {
+            attempt++;
+            try {
+                await sendToBackend(submissionData);
+                if (!opts.skipEmail && typeof EMAILJS_CONFIG !== 'undefined' && EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+                    await sendViaEmailJS(submissionData);
+                }
+                return true;
+            } catch (err) {
+                lastError = err;
+                if (!navigator.onLine) throw err; // offline: break early
+                const delay = Math.pow(2, attempt) * 300; // exp backoff
+                await new Promise(res => setTimeout(res, delay));
+            }
+        }
+        throw lastError;
     }
     
     // ===== Email and Backend Integration =====
@@ -260,42 +366,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation
     function validateForm(name, email, message) {
         let isValid = true;
-        
-        // Remove previous validation classes
         removeValidationClasses();
-        
-        // Validate name
+
         const nameInput = document.getElementById('name');
         if (!name || name.trim().length < 2) {
-            nameInput.classList.add('form-error');
-            showFieldError(nameInput, 'Name must be at least 2 characters long');
+            flagInvalid(nameInput, 'Name must be at least 2 characters long');
+            isValid = false;
+        } else if (name.length > 100) {
+            flagInvalid(nameInput, 'Name too long (max 100 chars)');
             isValid = false;
         } else {
             nameInput.classList.add('form-success');
         }
-        
-        // Validate email
+
         const emailInput = document.getElementById('email');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
-            emailInput.classList.add('form-error');
-            showFieldError(emailInput, 'Please enter a valid email address');
+            flagInvalid(emailInput, 'Please enter a valid email address');
+            isValid = false;
+        } else if (email.length > 160) {
+            flagInvalid(emailInput, 'Email too long');
             isValid = false;
         } else {
             emailInput.classList.add('form-success');
         }
-        
-        // Validate message
+
         const messageInput = document.getElementById('message');
         if (!message || message.trim().length < 10) {
-            messageInput.classList.add('form-error');
-            showFieldError(messageInput, 'Message must be at least 10 characters long');
+            flagInvalid(messageInput, 'Message must be at least 10 characters long');
+            isValid = false;
+        } else if (message.length > 2000) {
+            flagInvalid(messageInput, 'Message too long (max 2000 chars)');
+            isValid = false;
+        } else if (/https?:\/\//i.test(message)) {
+            flagInvalid(messageInput, 'Please avoid including links');
             isValid = false;
         } else {
             messageInput.classList.add('form-success');
         }
-        
+
         return isValid;
+    }
+
+    function flagInvalid(input, msg) {
+        input.classList.add('form-error');
+        showFieldError(input, msg);
     }
     
     function removeValidationClasses() {

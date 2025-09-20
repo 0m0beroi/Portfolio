@@ -1,0 +1,48 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: 'class',
+  content: [
+    './index.html',
+    './projects/**/*.html',
+    './partials/**/*.html',
+    './js/**/*.js'
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif']
+      },
+      colors: {
+        silver: '#C0C0C0',
+        'accent-blue': '#3B82F6',
+        'dark-blue': '#1E40AF'
+      },
+      boxShadow: {
+        'glass-card': '0 8px 24px -6px rgba(0,0,0,0.15),0 4px 10px -4px rgba(0,0,0,0.12)',
+        'elevated-dark': '0 10px 25px -5px rgba(0,0,0,0.55),0 8px 10px -6px rgba(0,0,0,0.5)'
+      },
+      backdropBlur: { 14: '14px' },
+      transitionProperty: {
+        theme: 'background-color,color,border-color,box-shadow,backdrop-filter'
+      },
+      keyframes: {
+        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+        slideUp: { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } },
+        toastIn: { '0%': { opacity: 0, transform: 'translateY(6px) scale(.96)' }, '100%': { opacity: 1, transform: 'translateY(0) scale(1)' } },
+        toastOut: { '0%': { opacity: 1, transform: 'translateY(0) scale(1)' }, '100%': { opacity: 0, transform: 'translateY(4px) scale(.98)' } },
+        shimmer: { '0%': { backgroundPosition: '0 0' }, '100%': { backgroundPosition: '40px 0' } }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        float: 'float 6s ease-in-out infinite',
+        'toast-in': 'toastIn .35s ease',
+        'toast-out': 'toastOut .3s ease forwards',
+        shimmer: 'shimmer 1.5s linear infinite'
+      }
+    }
+  },
+  plugins: []
+};
