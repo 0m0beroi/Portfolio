@@ -1,5 +1,51 @@
 /* Custom CSS for Om Oberoi Portfolio */
 
+/* =============================================
+   Glass Theme Variables & Base Styles
+   ----------------------------------
+   The glass theme applies subtle translucent layers using
+   CSS variables so future theming or brand adjustments
+   can be centralized. The root receives .glass-theme-root
+   and body gets .glass-theme for scoping.
+   ============================================= */
+:root.glass-theme-root {
+    --glass-bg: rgba(255,255,255,0.55);
+    --glass-bg-alt: rgba(255,255,255,0.35);
+    --glass-border: rgba(255,255,255,0.38);
+    --glass-ring: rgba(59,130,246,0.35);
+    --glass-card-shadow: 0 8px 24px -6px rgba(0,0,0,0.15),0 4px 10px -4px rgba(0,0,0,0.12);
+}
+
+.dark.glass-theme-root {
+    --glass-bg: rgba(30,41,59,0.55);
+    --glass-bg-alt: rgba(51,65,85,0.45);
+    --glass-border: rgba(255,255,255,0.08);
+    --glass-ring: rgba(96,165,250,0.35);
+    --glass-card-shadow: 0 10px 30px -8px rgba(0,0,0,0.65),0 6px 12px -6px rgba(0,0,0,0.55);
+}
+
+.glass-theme .glass-surface {
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-card-shadow);
+    transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.glass-theme .glass-surface-alt { background: var(--glass-bg-alt); }
+.glass-theme .glass-ring:focus-visible { outline:2px solid var(--glass-ring); outline-offset:3px; }
+
+/* Enhance existing project cards if glass theme is active */
+.glass-theme .project-card { background: var(--glass-bg); border:1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.glass-theme .project-card:hover { background: var(--glass-bg-alt); }
+
+/* Theme menu styling */
+.theme-menu { animation: fadeIn 0.18s ease; }
+.theme-menu .theme-option[aria-checked='true'] { background: rgba(59,130,246,0.18); font-weight:600; }
+.dark .theme-menu .theme-option[aria-checked='true'] { background: rgba(96,165,250,0.22); }
+.theme-menu .theme-option:focus-visible { outline:2px solid var(--glass-ring); outline-offset:-2px; }
+.theme-menu .theme-option i { width:16px; text-align:center; }
+
 /* Custom animations */
 @keyframes fadeIn {
     from {
