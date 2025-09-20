@@ -1,0 +1,27 @@
+// Project Page Enhancements (optional)
+// This script can be included on individual project pages for shared behaviors
+
+(function(){
+  document.addEventListener('DOMContentLoaded', () => {
+    // Smooth anchor scrolling within project pages
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+    internalLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        const targetId = link.getAttribute('href');
+        if(targetId.length > 1){
+          const el = document.querySelector(targetId);
+          if(el){
+            e.preventDefault();
+            window.scrollTo({top: el.offsetTop - 70, behavior: 'smooth'});
+          }
+        }
+      });
+    });
+
+    // Light fade-in animation
+    document.querySelectorAll('section').forEach((sec,i)=>{
+      sec.style.opacity = 0; sec.style.transform = 'translateY(12px)';
+      setTimeout(()=>{sec.style.transition='all .6s ease'; sec.style.opacity=1; sec.style.transform='translateY(0)';}, 80*i);
+    });
+  });
+})();

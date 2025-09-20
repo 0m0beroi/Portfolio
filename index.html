@@ -6,6 +6,17 @@
     <meta name="description" content="Om Oberoi - Electronics & Communication Engineer | Web Developer | Innovator">
     <meta name="keywords" content="Om Oberoi, Electronics Engineer, Web Developer, Portfolio, ECE, BBDNIIT">
     <title>Om Oberoi | Electronics & Communication Engineer</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Om Oberoi | Electronics & Communication Engineer" />
+    <meta property="og:description" content="Portfolio showcasing embedded systems, innovation, and software projects." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:image" content="assets/images/profile.jpg" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Om Oberoi | Electronics & Communication Engineer" />
+    <meta name="twitter:description" content="Embedded systems, innovation & software portfolio." />
+    <meta name="twitter:image" content="assets/images/profile.jpg" />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +27,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -51,49 +63,8 @@
 </head>
 <body class="font-inter bg-white text-gray-900 overflow-x-hidden">
     
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <a href="#home" class="text-2xl font-bold font-poppins text-gray-900 hover:text-accent-blue transition-colors">
-                        Om Oberoi<span class="text-accent-blue">.</span>
-                    </a>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="nav-link text-gray-900 hover:text-accent-blue px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                        <a href="#about" class="nav-link text-gray-700 hover:text-accent-blue px-3 py-2 text-sm font-medium transition-colors">About</a>
-                        <a href="#portfolio" class="nav-link text-gray-700 hover:text-accent-blue px-3 py-2 text-sm font-medium transition-colors">Portfolio</a>
-                        <a href="#skills" class="nav-link text-gray-700 hover:text-accent-blue px-3 py-2 text-sm font-medium transition-colors">Skills</a>
-                        <a href="#contact" class="nav-link text-gray-700 hover:text-accent-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
-                    </div>
-                </div>
-                
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-accent-blue hover:bg-gray-100 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Navigation -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-                <a href="#home" class="mobile-nav-link block px-3 py-2 text-base font-medium text-gray-900 hover:text-accent-blue">Home</a>
-                <a href="#about" class="mobile-nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent-blue">About</a>
-                <a href="#portfolio" class="mobile-nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent-blue">Portfolio</a>
-                <a href="#skills" class="mobile-nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent-blue">Skills</a>
-                <a href="#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent-blue">Contact</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation Include Placeholder -->
+    <div id="site-nav"></div>
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
@@ -207,70 +178,7 @@
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1: Wi-Fi Repeater -->
-                <div class="project-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-                    <div class="h-48 bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center">
-                        <i class="fas fa-wifi text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Wi-Fi Repeater using ESP32</h3>
-                        <p class="text-gray-600 mb-4 leading-relaxed">
-                            An embedded system project designed to extend Wi-Fi coverage using ESP32 microcontroller, featuring automatic signal amplification and seamless network bridging.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">ESP32</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">Embedded Systems</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">Wi-Fi</span>
-                        </div>
-                        <button class="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 2: Wearable Oscilloscope -->
-                <div class="project-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-                    <div class="h-48 bg-gradient-to-br from-silver/20 to-accent-blue/20 flex items-center justify-center">
-                        <i class="fas fa-chart-line text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Wearable Oscilloscope Smartwatch</h3>
-                        <p class="text-gray-600 mb-4 leading-relaxed">
-                            Revolutionary portable oscilloscope integrated into a smartwatch form factor, enabling real-time signal analysis on-the-go for electronics engineers.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">Wearables</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">Signal Processing</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">IoT</span>
-                        </div>
-                        <button class="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 3: Career Booster -->
-                <div class="project-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-                    <div class="h-48 bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center">
-                        <i class="fas fa-rocket text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Smart Career Booster Series</h3>
-                        <p class="text-gray-600 mb-4 leading-relaxed">
-                            Comprehensive software solution designed to accelerate career development through personalized learning paths, skill assessments, and industry insights.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">Web Development</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">AI/ML</span>
-                            <span class="px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full">EdTech</span>
-                        </div>
-                        <button class="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
 
@@ -497,50 +405,26 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <div class="mb-8">
-                    <a href="#home" class="text-3xl font-bold font-poppins hover:text-accent-blue transition-colors">
-                        Om Oberoi<span class="text-accent-blue">.</span>
-                    </a>
-                </div>
-                
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a>
-                    <a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a>
-                    <a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">Portfolio</a>
-                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
-                    <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
-                </div>
-                
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="https://www.linkedin.com/in/om-oberoi-253008365" class="text-gray-400 hover:text-accent-blue transition-colors text-xl" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/0m0beroi" class="text-gray-400 hover:text-white transition-colors text-xl" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://leetcode.com/u/0m0beroi/" class="text-gray-400 hover:text-orange-500 transition-colors text-xl" target="_blank">
-                        <i class="fas fa-code"></i>
-                    </a>
-                    <a href="https://www.instagram.com/0m0beroi/" class="text-gray-400 hover:text-pink-500 transition-colors text-xl" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-                
-                <div class="border-t border-gray-800 pt-8">
-                    <p class="text-gray-400">&copy; 2025 Om Oberoi. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Include Placeholder -->
+    <div id="site-footer"></div>
 
     <!-- JavaScript -->
-    <script src="js/api-config.js"></script>
-    <script src="js/email-config.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/script.js"></script>
+        <script src="js/api-config.js"></script>
+        <script src="js/email-config.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/includes.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            // Dynamic project card generation
+            document.addEventListener('DOMContentLoaded', () => {
+                const grid = document.getElementById('projects-grid');
+                if(!grid || !window.portfolioData) return;
+                grid.innerHTML = window.portfolioData.projects.map(p => {
+                    const tech = p.technologies.slice(0,3).map(t=>`<span class=\"px-3 py-1 bg-accent-blue/10 text-accent-blue text-sm rounded-full\">${t}</span>`).join('');
+                    return `<div class=\"project-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group\">\n<div class=\"h-48 bg-gradient-to-br from-accent-blue/20 to-silver/20 flex items-center justify-center\">\n<i class=\"${p.icon} text-6xl text-accent-blue group-hover:scale-110 transition-transform duration-300\"></i>\n</div>\n<div class=\"p-6\">\n<h3 class=\"text-xl font-bold text-gray-900 mb-3\">${p.title}</h3>\n<p class=\"text-gray-600 mb-4 leading-relaxed line-clamp-4\">${p.description}</p>\n<div class=\"flex flex-wrap gap-2 mb-4\">${tech}</div>\n<a href=\"${p.page}\" class=\"block text-center w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors\">View Project</a>\n</div>\n</div>`;
+                }).join('');
+            });
+            // Dark mode logic centralized in includes.js
+        </script>
 </body>
 </html>

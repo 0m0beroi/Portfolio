@@ -46,6 +46,9 @@ A modern, professional, and responsive portfolio website for Om Oberoi, an Elect
 - Project cards with hover effects
 - Mobile navigation toggle
 - Smooth scroll to sections
+ - Dynamic project card rendering from `js/data.js`
+ - Lightbox gallery (on project pages)
+ - Dark mode toggle with persistence
 
 ### Responsive Design
 - Mobile-first approach
@@ -66,6 +69,15 @@ A modern, professional, and responsive portfolio website for Om Oberoi, an Elect
 3. **Smart Career Booster Series**
    - Software solution for career development
    - Technologies: Web Development, AI/ML, EdTech
+
+### Individual Project Pages
+Each featured project now has its own dedicated detail page located under `projects/`:
+
+- `projects/wifi-repeater.html`
+- `projects/wearable-oscilloscope.html`
+- `projects/career-booster.html`
+
+Project cards on the main portfolio section link directly to these pages.
 
 ## 📋 Skills Highlighted
 
@@ -102,15 +114,65 @@ A modern, professional, and responsive portfolio website for Om Oberoi, an Elect
 
 ```
 portfolio/
-├── index.html          # Main HTML file
+├── index.html                     # Main landing page
+├── projects/                      # Individual project detail pages
+│   ├── wifi-repeater.html
+│   ├── wearable-oscilloscope.html
+│   └── career-booster.html
 ├── css/
-│   └── style.css      # Custom CSS styles
+│   ├── style.css                  # Custom CSS styles
+│   └── config.css                 # Additional configuration styles
 ├── js/
-│   └── script.js      # JavaScript functionality
-├── assets/
-│   └── images/        # Image assets
-└── README.md          # This file
+│   ├── script.js                  # Global site logic
+│   ├── data.js                    # Structured portfolio data (now includes page paths)
+│   ├── includes.js                # Loads nav & footer partials
+│   ├── project.js                 # Shared behaviors for project detail pages
+│   ├── lightbox.js                # Lightweight image lightbox
+│   ├── api-config.js              # Backend / API endpoint configuration
+│   ├── email-config.js            # Email service configuration
+│   └── ... more feature scripts
+## 🌗 Dark Mode
+
+Implemented via a toggle button in the navigation bar. Preference is stored in `localStorage` (`darkMode=true|false`). The `dark` class is applied to `html` allowing Tailwind's dark variants (future enhancement) or custom CSS toggling.
+
+## 🧩 HTML Includes System
+
+Reusable navigation and footer are stored in `partials/nav.html` and `partials/footer.html`. The loader `js/includes.js` fetches them into `#site-nav` and `#site-footer`. After loading, an `includes:loaded` event is dispatched for scripts that depend on injected elements (e.g., dark mode toggle binding).
+
+## 🖼 Lightbox Gallery
+
+Elements with `[data-lightbox]` open a fullscreen viewer (basic JS, no dependency). Add attributes:
 ```
+<a data-lightbox data-src="assets/images/example.jpg" data-caption="Caption text">...</a>
+```
+
+## 🧮 Dynamic Project Cards
+
+The portfolio grid on `index.html` is now generated at runtime from the `projects` array in `data.js`. Each project needs a `page` path and core metadata. To add a new project:
+1. Add the project object to `projects` in `data.js` (ensure it has a `page` field).
+2. Create the corresponding HTML page in `projects/` (copy a template).
+3. Reload the homepage – the new card appears automatically.
+
+## 🏗 Build Script
+
+Added a minimal Node build pipeline:
+```
+npm install   # (no dependencies yet, optional)
+npm run build
+```
+Outputs a `dist/` directory with minified `.css` and `.js` plus copied assets & HTML. The script is intentionally simple (regex-based); for production consider tools like Vite, Parcel, or Rollup.
+
+├── assets/
+│   └── images/                    # Image assets
+└── README.md
+```
+
+### Adding a New Project Page
+1. Create a new HTML file in `projects/` (e.g. `projects/my-new-project.html`). You can copy one of the existing pages as a starting template.
+2. Add a new project object to the `projects` array in `js/data.js` with a unique `id` and include a `page` property pointing to the new file path.
+3. Update the portfolio grid in `index.html` (or refactor to generate dynamically) to include a new card linking to the page.
+4. (Optional) Add project‑specific images to `assets/images/`.
+5. Open `index.html` in a browser and verify navigation to the new page works.
 
 ## 🎨 Customization
 

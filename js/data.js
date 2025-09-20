@@ -106,6 +106,7 @@ const portfolioData = {
             year: "2024",
             github: "#",
             demo: "#",
+            page: "projects/wifi-repeater.html",
             details: {
                 overview: "This project focuses on creating a robust Wi-Fi repeater solution using the ESP32 microcontroller...",
                 features: [
@@ -137,6 +138,7 @@ const portfolioData = {
             year: "2024",
             github: "#",
             demo: "#",
+            page: "projects/wearable-oscilloscope.html",
             details: {
                 overview: "A groundbreaking wearable device that combines the functionality of an oscilloscope with the convenience of a smartwatch...",
                 features: [
@@ -168,6 +170,7 @@ const portfolioData = {
             year: "2024",
             github: "#",
             demo: "#",
+            page: "projects/career-booster.html",
             details: {
                 overview: "An intelligent platform that helps students and professionals advance their careers through data-driven insights...",
                 features: [
