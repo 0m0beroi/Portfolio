@@ -7,8 +7,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Railway-specific configuration
+const isProduction = process.env.NODE_ENV === 'production';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8000';
+
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: isProduction ? [FRONTEND_URL, /\.railway\.app$/, /\.netlify\.app$/, /\.vercel\.app$/] : true,
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

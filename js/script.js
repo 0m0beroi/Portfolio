@@ -196,7 +196,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function sendToBackend(submissionData) {
-        const response = await fetch('http://localhost:3001/api/contact', {
+        const apiUrl = API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.CONTACT;
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
