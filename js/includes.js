@@ -14,18 +14,60 @@
 
 // Simple HTML include loader for nav & footer
 (async function(){
+  function inlineNavFallback(){
+    return (
+      '<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
+      + '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">\n'
+      + '<a href="/#home" class="text-2xl font-bold font-poppins text-gray-900">Om Oberoi<span class="text-accent-blue">.</span></a>\n'
+      + '<div class="hidden md:flex items-baseline space-x-8">\n'
+      + '<a href="/#home" class="nav-link text-gray-900 hover:text-accent-blue text-sm font-medium">Home</a>\n'
+      + '<a href="/#about" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">About</a>\n'
+      + '<a href="/#portfolio" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Portfolio</a>\n'
+      + '<a href="/#skills" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Skills</a>\n'
+      + '<a href="/#contact" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Contact</a>\n'
+      + '</div>\n'
+      + '</div>\n'
+      + '</nav>'
+    );
+  }
+  function inlineFooterFallback(){
+    return (
+      '<footer class="bg-gray-900 text-white py-12">\n'
+      + '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">\n'
+      + '<div class="mb-8"><a href="/#home" class="text-3xl font-bold font-poppins hover:text-accent-blue">Om Oberoi<span class="text-accent-blue">.</span></a></div>\n'
+      + '<div class="flex justify-center space-x-6 mb-8">\n'
+      + '<a href="/#home" class="text-gray-400 hover:text-white">Home</a>\n'
+      + '<a href="/#about" class="text-gray-400 hover:text-white">About</a>\n'
+      + '<a href="/#portfolio" class="text-gray-400 hover:text-white">Portfolio</a>\n'
+      + '<a href="/#skills" class="text-gray-400 hover:text-white">Skills</a>\n'
+      + '<a href="/#contact" class="text-gray-400 hover:text-white">Contact</a>\n'
+      + '</div>\n'
+      + '<div class="border-t border-gray-800 pt-8">\n'
+      + '<p class="text-gray-400">© 2025 Om Oberoi. All rights reserved.</p>\n'
+      + '</div>\n'
+      + '</div>\n'
+      + '</footer>'
+    );
+  }
   async function loadInclude(selector, url){
     const host = document.querySelector(selector);
     if(!host) return;
     try {
-      let res = await fetch(url, { cache: 'no-cache' });
+      let res = await fetch(url, { cache: 'no-store', credentials: 'same-origin', mode: 'same-origin' });
       if(!res.ok){ throw new Error(`HTTP ${res.status}`); }
       let html = await res.text();
       // Some SPA rewrites return index.html for unknown paths; detect and retry with relative path
       if(/<!DOCTYPE html>/i.test(html) && (url.endsWith('/partials/nav.html') || url.endsWith('/partials/footer.html'))){
         const rel = url.replace(/^\//,'');
-        res = await fetch(rel, { cache: 'no-cache' });
+        res = await fetch(rel, { cache: 'no-store', credentials: 'same-origin', mode: 'same-origin' });
         if(res.ok){ html = await res.text(); }
+      }
+      // Avoid injecting a full document into the placeholder if host protection or rewrites are still in effect
+      if(/<!DOCTYPE html>/i.test(html)){
+        console.warn('Skipping include injection because response looks like a full document:', url);
+        // Graceful fallback
+        host.innerHTML = selector === '#site-nav' ? inlineNavFallback() : inlineFooterFallback();
+        return;
       }
       host.innerHTML = html;
     }
