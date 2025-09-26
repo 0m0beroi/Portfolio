@@ -16,7 +16,7 @@
 (async function(){
   function inlineNavFallback(){
     return (
-      '<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
+      '<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
       + '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">\n'
       + '<a href="/#home" class="text-2xl font-bold font-poppins text-gray-900">Om Oberoi<span class="text-accent-blue">.</span></a>\n'
       + '<div class="hidden md:flex items-baseline space-x-8">\n'

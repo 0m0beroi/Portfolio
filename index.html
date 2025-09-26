@@ -423,7 +423,7 @@
     <!-- JavaScript: use a single module entry for Vite bundling -->
         <script>/* minimal inline fallback if includes.js/partials are blocked */
             (function(){
-                function nav(){return '<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
+                function nav(){return '<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
                     +'<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">\n'
                     +'<a href="/#home" class="text-2xl font-bold font-poppins text-gray-900">Om Oberoi<span class="text-accent-blue">.</span></a>\n'
                     +'<div class="hidden md:flex items-baseline space-x-8">\n'
@@ -448,7 +448,9 @@
                     var n=document.getElementById('site-nav'); if(n && !n.innerHTML.trim()){ n.innerHTML=nav(); }
                     var f=document.getElementById('site-footer'); if(f && !f.innerHTML.trim()){ f.innerHTML=footer(); }
                 }
-                document.addEventListener('DOMContentLoaded', function(){ setTimeout(ensure, 500); });
+                // Run now (in case DOMContentLoaded already fired) and schedule after DOM is ready
+                try{ ensure(); }catch(_){ }
+                document.addEventListener('DOMContentLoaded', function(){ setTimeout(ensure, 200); });
             })();
         </script>
         <script src="/js/includes.js"></script>
