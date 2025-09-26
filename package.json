@@ -2,6 +2,9 @@
   "name": "om-oberoi-portfolio",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "node ./node_modules/vite/bin/vite.js",
     "dev:legacy-watch": "npm-run-all -p css:watch dev",
