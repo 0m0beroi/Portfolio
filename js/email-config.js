@@ -18,3 +18,8 @@ const EMAILJS_CONFIG = {
 // - {{email}} - sender's email  
 // - {{message}} - the message content
 // - {{timestamp}} - when the message was sent
+
+// Make available globally (for scripts that expect a global config)
+if (typeof window !== 'undefined') {
+    window.EMAILJS_CONFIG = EMAILJS_CONFIG;
+}

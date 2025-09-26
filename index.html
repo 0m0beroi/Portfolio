@@ -420,13 +420,8 @@
     <!-- Footer Include Placeholder -->
     <div id="site-footer"></div>
 
-    <!-- JavaScript -->
-    <script src="js/api-config.js" defer></script>
-    <script src="js/email-config.js" defer></script>
-    <script src="js/data.js" defer></script>
-    <script src="js/includes.js" defer></script>
-    <script src="js/script.js" defer></script>
-    <script type="module" src="js/projects-render.js"></script>
+    <!-- JavaScript: use a single module entry for Vite bundling -->
+    <script type="module" src="/js/main.js"></script>
     <!-- Removed previous inline script that forcibly added 'reduce-effects' on load.
          That script unintentionally paused all CSS animations (hover/click effects)
          after a theme change because our theme switch logic then restarted animations
