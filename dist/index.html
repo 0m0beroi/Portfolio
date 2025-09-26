@@ -427,5 +427,13 @@
     <script src="js/includes.js" defer></script>
     <script src="js/script.js" defer></script>
     <script type="module" src="js/projects-render.js"></script>
+    <!-- Removed previous inline script that forcibly added 'reduce-effects' on load.
+         That script unintentionally paused all CSS animations (hover/click effects)
+         after a theme change because our theme switch logic then restarted animations
+         only once, but the class was re-applied early, keeping play-state paused.
+         Reduced-effects is now controlled exclusively via the theme menu toggle
+         (localStorage key: 'reduceEffects'). -->
 </body>
 </html>
+
+<!-- Removed duplicate inline reduced-effects style block (centralized in css/style.css). -->

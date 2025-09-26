@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-  "dev": "vite",
-  "dev:legacy-watch": "npm-run-all -p css:watch vite",
-  "dev:solo": "vite",
+    "dev": "vite",
+    "dev:legacy-watch": "npm-run-all -p css:watch vite",
+    "dev:solo": "vite",
     "build": "npm run css:build && vite build && node scripts/build.js",
     "css:build": "tailwindcss -i ./css/tw-src.css -o ./css/tw.css --minify",
     "css:watch": "tailwindcss -i ./css/tw-src.css -o ./css/tw.css --watch",
@@ -16,9 +16,12 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "glob": "^11.0.0",
-    "postcss": "^8.4.41",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
     "vite": "^7.1.6"
+  },
+  "dependencies": {
+    "zod": "^4.1.9"
   }
 }

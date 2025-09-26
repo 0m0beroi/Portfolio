@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "wifi-repeater",
+    "title": "WiFi Repeater",
+    "excerpt": "Extends wireless coverage using embedded control.",
+    "stack": ["ESP32","C","Networking"],
+    "status": "completed",
+    "image": "/images/projects/wifi-repeater.jpg",
+    "content": "# WiFi Repeater\nA detailed description in markdown can go here."
+  },
+  {
+    "slug": "wearable-oscilloscope",
+    "title": "Wearable Oscilloscope",
+    "excerpt": "Portable signal visualization concept.",
+    "stack": ["MCU","Sensors","Display"],
+    "status": "in-progress",
+    "image": "/images/projects/wearable-oscilloscope.jpg",
+    "content": "# Wearable Oscilloscope\nProject details to be expanded."
+  },
+  {
+    "slug": "career-booster",
+    "title": "Career Booster",
+    "excerpt": "Learning & productivity companion project.",
+    "stack": ["Web","Productivity"],
+    "status": "planned",
+    "image": "/images/projects/career-booster.jpg",
+    "content": "# Career Booster\nMore content coming soon."
+  }
+]

@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg-root: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-text-primary: #0f172a;
+  --color-text-muted: #475569;
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-bg-alt: rgba(255,255,255,0.4);
+}
+
+.dark {
+  --color-bg-root: #0f172a;
+  --color-bg-elevated: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --glass-bg: rgba(30,41,59,0.55);
+  --glass-bg-alt: rgba(30,41,59,0.4);
+}
+
+/* Dim theme (softer dark) */
+.dim {
+  --color-bg-root: #121a24;
+  --color-bg-elevated: #1b2531;
+  --color-text-primary: #e2e8f0;
+  --color-text-muted: #7b8a9a;
+  --glass-bg: rgba(27,37,49,0.55);
+  --glass-bg-alt: rgba(27,37,49,0.4);
+}
+
+/* High contrast theme */
+.contrast {
+  --color-bg-root: #000000;
+  --color-bg-elevated: #0d0d0d;
+  --color-text-primary: #ffffff;
+  --color-text-muted: #d4d4d4;
+  --glass-bg: rgba(0,0,0,0.7);
+  --glass-bg-alt: rgba(0,0,0,0.55);
+}
+
+html, body { height: 100%; }
+body { background: var(--color-bg-root); color: var(--color-text-primary); font-family: 'Inter', system-ui, sans-serif; }
+
+.glass-surface { background: var(--glass-bg); backdrop-filter: blur(12px) saturate(150%); }
+.glass-surface-alt { background: var(--glass-bg-alt); backdrop-filter: blur(16px) saturate(160%); }
+
+/* Reduced effects preference */
+html.reduce-effects * { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: 0ms !important; }
+
+/* Toast */
+.theme-toast { @apply fixed top-4 inset-x-0 mx-auto w-fit px-4 py-2 rounded-lg bg-slate-800 text-slate-50 shadow-lg animate-toast-in; }
+.theme-toast.leaving { @apply animate-toast-out; }

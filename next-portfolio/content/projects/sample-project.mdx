@@ -1,0 +1,21 @@
+---
+slug: sample-project
+title: Sample MDX Project
+summary: Demonstrates MDX-powered rich content for a project page.
+updated: 2025-09-20
+---
+
+import { motion } from 'framer-motion';
+
+<motion.h2 initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.6}}>Interactive MDX Section</motion.h2>
+
+You can now write **rich content**, embed custom React components, and use motion primitives directly inside MDX.
+
+```ts
+// Example snippet
+export function add(a: number, b: number){
+  return a + b;
+}
+```
+
+> MDX enables long-form, styled, and interactive project documentation without scattering components.
