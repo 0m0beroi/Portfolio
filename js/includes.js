@@ -20,8 +20,9 @@
     try { const res = await fetch(url); host.innerHTML = await res.text(); }
     catch(e){ console.error('Include load failed', url, e); }
   }
-  await loadInclude('#site-nav','partials/nav.html');
-  await loadInclude('#site-footer','partials/footer.html');
+  // Use absolute paths so it works from nested routes like /projects/*
+  await loadInclude('#site-nav','/partials/nav.html');
+  await loadInclude('#site-footer','/partials/footer.html');
   // Re-run script.js initializers if necessary (basic re-bind for mobile menu)
   // Attach dark mode toggle once nav is present
   (function initDarkMode(){
@@ -265,6 +266,7 @@
   document.dispatchEvent(new Event('includes:loaded'));
   // Register service worker
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+    // Register from root so nested pages don't resolve to /projects/sw.js
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
   }
 })();
