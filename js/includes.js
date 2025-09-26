@@ -17,7 +17,18 @@
   async function loadInclude(selector, url){
     const host = document.querySelector(selector);
     if(!host) return;
-    try { const res = await fetch(url); host.innerHTML = await res.text(); }
+    try {
+      let res = await fetch(url, { cache: 'no-cache' });
+      if(!res.ok){ throw new Error(`HTTP ${res.status}`); }
+      let html = await res.text();
+      // Some SPA rewrites return index.html for unknown paths; detect and retry with relative path
+      if(/<!DOCTYPE html>/i.test(html) && (url.endsWith('/partials/nav.html') || url.endsWith('/partials/footer.html'))){
+        const rel = url.replace(/^\//,'');
+        res = await fetch(rel, { cache: 'no-cache' });
+        if(res.ok){ html = await res.text(); }
+      }
+      host.innerHTML = html;
+    }
     catch(e){ console.error('Include load failed', url, e); }
   }
   // Use absolute paths so it works from nested routes like /projects/*

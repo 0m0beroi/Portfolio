@@ -1,6 +1,6 @@
 {
+  "version": 2,
   "name": "om-oberoi-portfolio",
-  "public": true,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "headers": [
@@ -22,10 +22,8 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
