@@ -421,7 +421,37 @@
     <div id="site-footer"></div>
 
     <!-- JavaScript: use a single module entry for Vite bundling -->
-    <script src="/js/includes.js"></script>
+        <script>/* minimal inline fallback if includes.js/partials are blocked */
+            (function(){
+                function nav(){return '<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">\n'
+                    +'<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">\n'
+                    +'<a href="/#home" class="text-2xl font-bold font-poppins text-gray-900">Om Oberoi<span class="text-accent-blue">.</span></a>\n'
+                    +'<div class="hidden md:flex items-baseline space-x-8">\n'
+                    +'<a href="/#home" class="nav-link text-gray-900 hover:text-accent-blue text-sm font-medium">Home</a>\n'
+                    +'<a href="/#about" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">About</a>\n'
+                    +'<a href="/#portfolio" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Portfolio</a>\n'
+                    +'<a href="/#skills" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Skills</a>\n'
+                    +'<a href="/#contact" class="nav-link text-gray-700 hover:text-accent-blue text-sm font-medium">Contact</a>\n'
+                    +'</div></div></nav>';}
+                function footer(){return '<footer class="bg-gray-900 text-white py-12">\n'
+                    +'<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">\n'
+                    +'<div class="mb-8"><a href="/#home" class="text-3xl font-bold font-poppins hover:text-accent-blue">Om Oberoi<span class="text-accent-blue">.</span></a></div>\n'
+                    +'<div class="flex justify-center space-x-6 mb-8">\n'
+                    +'<a href="/#home" class="text-gray-400 hover:text-white">Home</a>\n'
+                    +'<a href="/#about" class="text-gray-400 hover:text-white">About</a>\n'
+                    +'<a href="/#portfolio" class="text-gray-400 hover:text-white">Portfolio</a>\n'
+                    +'<a href="/#skills" class="text-gray-400 hover:text-white">Skills</a>\n'
+                    +'<a href="/#contact" class="text-gray-400 hover:text-white">Contact</a>\n'
+                    +'</div><div class="border-t border-gray-800 pt-8">\n'
+                    +'<p class="text-gray-400">© 2025 Om Oberoi. All rights reserved.</p></div></div></footer>';}
+                function ensure(){
+                    var n=document.getElementById('site-nav'); if(n && !n.innerHTML.trim()){ n.innerHTML=nav(); }
+                    var f=document.getElementById('site-footer'); if(f && !f.innerHTML.trim()){ f.innerHTML=footer(); }
+                }
+                document.addEventListener('DOMContentLoaded', function(){ setTimeout(ensure, 500); });
+            })();
+        </script>
+        <script src="/js/includes.js"></script>
     <script type="module" src="/js/main.js"></script>
     <!-- Removed previous inline script that forcibly added 'reduce-effects' on load.
          That script unintentionally paused all CSS animations (hover/click effects)
